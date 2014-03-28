@@ -10,10 +10,21 @@ describe ContactInquiry do
     last_name: 'Incognito'
     } }
 
-  it "has a valid email address" do
+  it "has an email address" do
     inquiry = ContactInquiry.new(valid_attrs.merge(email: ''))
     inquiry.valid?
     expect(inquiry.errors[:email]).to include "can't be blank"
+  end
+
+  it 'has a valid email' do
+    inquiry = ContactInquiry.new(valid_attrs)
+    inquiry.email = 'HELPHOWDOIEMAILPEOPLE'
+    expect(inquiry).to_not be_valid
+    inquiry.email = '@aol.com'
+    expect(inquiry).to_not be_valid
+    inquiry.email = 'jerk@jerkcom'
+    expect(inquiry).to_not be_valid
+    inquiry.email = 'email.com'
   end
 
   it "has a subject" do

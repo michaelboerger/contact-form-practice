@@ -15,7 +15,18 @@ So that I can tell them how awesome they are
 # * I must specify a last name
 
   context "with valid attributes" do
-    it "creates an issue with valid attributes"
+    it "creates an issue with valid attributes" do
+      visit '/contact_inquiries/new'
+
+      fill_in "Email", with: "Broken@link.com"
+      fill_in "Subject", with: "The sign in link is broken"
+      fill_in "Description", with: "aslkdhfqsdhj? haskdjhaksjdhkag!"
+      fill_in "First Name", with: "Guy"
+      fill_in "Last Name", with: "Incognito"
+      click_on "Contact Inquiry"
+
+      expect(page).to have_content "Inquiry was succesfully created"
+    end
   end
 
   context "with invalid attributes" do
